@@ -1,0 +1,21 @@
+# Terraform files
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+override.tf
+override.tf.json
+*.tfplan
+
+# Local .env file
+.env
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+# Log files
+*.log
+
+# Backup files
+*~
