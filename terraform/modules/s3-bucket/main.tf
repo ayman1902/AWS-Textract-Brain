@@ -1,16 +1,28 @@
 resource "aws_s3_bucket" "this" {
   bucket = var.bucket_name
 
+  /*
   # Enable static website hosting
   website {
     index_document = "index.html"  # Default document for the website
     # error_document = "error.html"  # Optional: Set an error document
   }
-
+  */
   # Remove the object_ownership line
   tags = {
     Name        = var.bucket_name
     Environment = var.environment
+  }
+}
+resource "aws_s3_bucket_website_configuration" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
   }
 }
 resource "aws_s3_bucket_public_access_block" "this" {
@@ -44,6 +56,3 @@ output "bucket_name" {
   value = aws_s3_bucket.this.bucket
 }
 
-output "website_endpoint" {
-  value = aws_s3_bucket.this.website_endpoint
-}
